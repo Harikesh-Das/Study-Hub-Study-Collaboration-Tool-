@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub - User Profile</title>
+    <link rel="stylesheet" href="/UserProfile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/UserProfile.js"></script>
+</head>
+<body>
+    <nav class="topnav">
+        <a href="/schedule" class="nav-link">Home</a>
+        <a href="/userProfile" class="nav-link active">Profile</a>
+        <a href="/" class="nav-link" onclick="logUserOut()">Logout</a>
+    </nav>
+
+    <div class="container">
+        <div class="profile-section glass-card">
+            <h2 class="section-title">Profile Information</h2>
+            <div class="profile-grid">
+                <div class="profile-item">
+                    <label>Email</label>
+                    <div class="profile-value" id="emailDisplay">
+                        <span th:text="${email}" id="emailValue">{{ email }}</span>
+                    </div>
+                </div>
+                <div class="profile-item">
+                    <label>Full Name</label>
+                    <div class="profile-value" id="nameDisplay">
+                        <span th:text="${fullname}" id="fullName">{{ fullname }}</span>
+                    </div>
+                </div>
+                <div class="profile-item">
+                    <label>Phone</label>
+                    <div class="profile-value" id="phoneDisplay">
+                        <span id="phoneSpan">+91 XXXXX-XXXXX</span>
+                        <button class="icon-btn" onclick="editPhone()" title="Edit Phone">✏️</button>
+                    </div>
+                    <div id="editPhoneForm" class="edit-form" style="display:none;">
+                        <input type="text" id="phoneInput" class="glass-input" placeholder="Enter phone number">
+                        <button class="btn-save" onclick="savePhone()">Save</button>
+                        <button class="btn-cancel" onclick="cancelPhoneEdit()">Cancel</button>
+                    </div>
+                </div>
+                <div class="profile-item">
+                    <label>Account</label>
+                    <div class="profile-value">
+                        <span>Delete Account</span>
+                        <button class="btn-danger" onclick="deleteAccount()" title="Delete Account">🗑️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="schedule-section glass-card">
+            <div class="section-header">
+                <h2 class="section-title">My Schedule</h2>
+                <div class="input-container">
+                    <input type="text" id="newCourseInput" class="glass-input" placeholder="Enter course name">
+                    <button class="btn-add" onclick="addCourse()">+ Add</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="scheduleTable">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Course rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="groups-section glass-card">
+            <div class="section-header">
+                <h2 class="section-title">Study Groups</h2>
+            </div>
+            <div class="table-container">
+                <table id="groupsTable">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Meeting Date</th>
+                            <th>Start Time</th>
+                            <th>Capacity</th>
+                            <th>Location</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Group rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logUserOut() {
+            sessionStorage.removeItem('loggedInUser');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub - Schedule</title>
+    <link rel="stylesheet" href="/SchedulePage.css">
+    <script src="/SchedulePage.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="LoggedIn" id="LoggedIn">
+            <a href="/newStudyGroup" class="nav-link">New Group</a>
+            <a href="/schedule" class="nav-link active">Home</a>
+            <a href="/userProfile" class="nav-link">Profile</a>
+            <a href="/" class="nav-link" onclick="logUserOut()">Logout</a>
+        </div>
+        <div class="notLoggedIn" id="notLoggedIn">
+            <a href="/" class="nav-link">Login / Sign Up</a>
+            <a href="/scheduleGuest" class="nav-link active">Home</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <h1 class="page-title">Study Groups</h1>
+            <p class="page-subtitle">Discover and join study groups for your courses</p>
+        </div>
+
+        <div class="courseContainer" id="courseContainer">
+            <!-- Course groups will be populated here by JavaScript -->
+        </div>
+    </div>
+</body>
+</html>

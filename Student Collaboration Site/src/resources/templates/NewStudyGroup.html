@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub - Create Study Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #1a1a2e;
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-glass-hover: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .course-form {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 550px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--shadow-glass), var(--shadow-glow);
+            padding: 40px 35px;
+            transition: transform 0.3s ease;
+        }
+
+        .course-form:hover {
+            transform: translateY(-2px);
+        }
+
+        .course-form h2 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .course-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group input {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group input:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .course-form button {
+            margin-top: 10px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            border: none;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .course-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .course-form button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .course-form {
+                padding: 30px 25px;
+            }
+
+            .course-form h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="course-form">
+        <h2>New Study Group</h2>
+        <form action="/schedule" method="post">
+            <div class="form-group">
+                <label for="courseName">Course Name</label>
+                <input type="text" id="courseName" name="coursename" placeholder="e.g., CSCI 201" required>
+            </div>
+            <div class="form-group">
+                <label for="courseLocation">Location</label>
+                <input type="text" id="courseLocation" name="location" placeholder="e.g., Library Room 201" required>
+            </div>
+            <div class="form-group">
+                <label for="meetingDate">Date</label>
+                <input type="date" id="meetingDate" name="meetingDate" required>
+            </div>
+            <div class="form-group">
+                <label for="meetingTime">Start Time</label>
+                <input type="time" id="meetingTime" name="meetingTimeStart" required>
+            </div>
+            <div class="form-group">
+                <label for="courseCap">Capacity</label>
+                <input type="number" id="courseCap" name="capacity" placeholder="5" min="2" required>
+            </div>
+            <button type="submit">Create Group</button>
+        </form>
+    </div>
+</body>
+</html>

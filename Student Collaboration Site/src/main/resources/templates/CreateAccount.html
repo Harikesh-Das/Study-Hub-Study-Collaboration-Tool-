@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub - Create Account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #1a1a2e;
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-glass-hover: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+
+        .logo-container img {
+            max-width: 180px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(99, 102, 241, 0.3));
+            border-radius: 16px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            padding: 12px;
+            border: 1px solid var(--border-glass);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .register-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--shadow-glass), var(--shadow-glow);
+            padding: 45px 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .register-container:hover {
+            transform: translateY(-2px);
+        }
+
+        .page-title {
+            color: var(--text-primary);
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 35px;
+            letter-spacing: -0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group input:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            border: none;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-register:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            color: #fca5a5;
+            font-size: 14px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .register-container {
+                padding: 35px 30px;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 30px 25px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+    <script>
+        function validateEmail() {
+            var email = document.getElementById('email').value;
+            if (email.endsWith("@gmail.com")) {
+                sessionStorage.setItem('loggedInUser', email);
+                return true;
+            } else {
+                alert("Email must end with @gmail.com");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="/Logo_ Name_ Study Hub,_Slogan_ Study Smarter, Together.jpg" alt="Study Hub Logo">
+    </div>
+    
+    <div class="register-container">
+        <h1 class="page-title">Create your account</h1>
+        
+        <form onsubmit="return validateEmail()" action="/userProfile" method="post">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your.email@gmail.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" minlength="8" placeholder="Minimum 8 characters" required>
+            </div>
+
+            <button type="submit" class="btn-register">Register</button>
+        </form>
+
+        <div class="error-message" th:if="${errorMessage}">
+            <p th:text="${errorMessage}"></p>
+        </div>
+    </div>
+</body>
+</html>
